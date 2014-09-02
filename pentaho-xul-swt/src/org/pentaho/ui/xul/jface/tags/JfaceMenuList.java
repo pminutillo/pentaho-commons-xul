@@ -274,6 +274,7 @@ public class JfaceMenuList<T> extends AbstractSwtXulContainer implements XulMenu
   public void removeChild( Element ele ) {
     String selected = this.getSelectedItem();
     super.removeChild( ele );
+    popup.removeChild( ele );
     if ( selected == null ) {
       return;
     }
@@ -283,6 +284,18 @@ public class JfaceMenuList<T> extends AbstractSwtXulContainer implements XulMenu
         setSelectedItem( t );
       }
     }
+  }
+
+  /**
+   * Remove all child nodes
+   */
+  public void removeAllChildren() {
+    Collection<T> elist = getElements();
+    for ( T t : elist ) {
+      super.removeChild( (Element) t );
+    }
+
+    combobox.removeAll();
   }
 
   private void fireSelectedEvents() {
